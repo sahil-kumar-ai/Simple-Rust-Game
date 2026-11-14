@@ -1,6 +1,6 @@
 use std::io;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Move {
     X,
     O,
@@ -19,7 +19,7 @@ impl Position {
     }
 }
 
-pub fn input_position(prev: &mut i32) -> Position {
+pub fn input_position(curr: &mut bool) -> Position {
     let row: usize = loop {
         let mut input = String::new();
 
@@ -44,30 +44,7 @@ pub fn input_position(prev: &mut i32) -> Position {
         }
     };
 
-    let value: char = loop {
-        let mut input = String::new();
-
-        println!("Enter a value (X or O) -> ");
-        io::stdin().read_line(&mut input).expect("Error");
-
-        match input.trim().to_ascii_uppercase().as_str() {
-            "X" if *prev == 1 => {
-                println!("X was used in the last move. Enter O.");
-            }
-            "O" if *prev == -1 => {
-                println!("O was used in the last move. Enter X.");
-            }
-            "X" => {
-                *prev = 1;
-                break 'X';
-            }
-            "O" => {
-                *prev = -1;
-                break 'O';
-            }
-            _ => println!("Invalid value! Enter X or O."),
-        }
-    };
+    let value: char = if *curr { 'X' } else { 'O' };
 
     Position::update_position(col, row, value)
 }
