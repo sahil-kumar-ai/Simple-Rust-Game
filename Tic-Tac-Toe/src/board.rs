@@ -38,6 +38,7 @@ impl Board {
         if how_reset == "new" {
             self.x_player_wins = 0;
             self.o_player_wins = 0;
+            self.draws = 0;
         }
     }
 
