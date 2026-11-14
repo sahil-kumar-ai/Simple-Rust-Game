@@ -1,61 +1,28 @@
-# Simple Rust Games
+# 🦀 Simple Rust Games
 
-A collection of simple command-line games built using **Rust**.
+A collection of command-line games built using **Rust**.
 
-This repository is my space for learning Rust through hands-on projects. Each game is developed individually, helping me understand Rust concepts, improve problem-solving skills, and write better code.
+This repository contains small games developed while learning Rust, with a focus on understanding programming fundamentals, problem-solving, ownership, borrowing, data structures, and Rust's module system.
 
 ## 🎮 Games
 
 | Game | Description | Status |
 |---|---|---|
-| [Guess The Number](./GuessTheNumber) | Guess the randomly generated number with hints. | Completed |
-| [Tic-Tac-Toe](./Tic-Tac-Toe) | A two-player Tic-Tac-Toe game played in the terminal. | In Progress |
+| [Guessing Game](./Guessing%20The%20Number) | Guess the randomly generated number with interactive input and feedback. | Completed |
+| [Tic-Tac-Toe](./Tic-Tac-Toe) | Two-player Tic-Tac-Toe with win detection, draw detection, score tracking, and interactive menus. | Completed |
 
 ## 🛠️ Tech Stack
 
 - **Language:** Rust
-- **Build Tool:** Cargo
-- **Interface:** Command Line (CLI)
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-Make sure you have Rust and Cargo installed.
-
-You can install Rust using [rustup](https://rustup.rs/).
-
-Verify your installation:
-
-```bash
-rustc --version
-cargo --version
-```
-
-### Running a Game
-
-Navigate to the directory of the game you want to play.
-
-For example, to run Tic-Tac-Toe:
-
-```bash
-cd Tic-Tac-Toe
-cargo run
-```
-
-To run Guess The Number:
-
-```bash
-cd GuessTheNumber
-cargo run
-```
+- **Package Manager:** Cargo
+- **CLI Interaction:** dialoguer
 
 ## 📁 Repository Structure
 
 ```text
 Simple-Rust-Game/
 │
-├── GuessTheNumber/
+├── Guessing The Number/
 │   ├── Cargo.toml
 │   └── src/
 │
@@ -66,26 +33,65 @@ Simple-Rust-Game/
 └── README.md
 ```
 
-*The structure may evolve as more games are added.*
+Each game is maintained as an independent Cargo project.
 
-## 🎯 Purpose
+## 🚀 Getting Started
 
-The goal of this repository is to learn Rust by building small, practical projects rather than just reading documentation.
+### Prerequisites
 
-Through these games, I aim to explore concepts such as:
+Install Rust and Cargo:
 
-- Variables, data types, and control flow
-- Ownership and borrowing
+https://www.rust-lang.org/tools/install
+
+### Clone the repository
+
+```bash
+git clone https://github.com/sahil-kumar-ai/Simple-Rust-Game.git
+```
+
+### Navigate to a game
+
+```bash
+cd Simple-Rust-Game
+cd Tic-Tac-Toe
+```
+
+### Run the game
+
+```bash
+cargo run
+```
+
+For another game, navigate to its directory and run the same command.
+
+## 📚 Learning Goals
+
+This repository is a practical way to explore Rust through building projects.
+
+Concepts explored include:
+
+- Variables and mutability
+- Data types and control flow
+- Functions and methods
 - Structs and enums
+- Ownership and borrowing
+- References and mutable references
+- Arrays and vectors
+- Iterators
 - Pattern matching
-- Modules and code organization
-- Collections and error handling
-- Problem-solving and game logic
+- Modules and visibility
+- External crates and Cargo
 
-## 📌 Future Plans
+## 🔮 Future Plans
 
-More games and experiments will be added as I continue learning Rust.
+More Rust CLI games and projects will be added as I continue learning the language.
+
+## 👨‍💻 Author
+
+**Sahil Kumar**
+
+[GitHub Profile](https://github.com/sahil-kumar-ai)
 
 ---
 
-**Built with Rust 🦀**
+Built with Rust 🦀
