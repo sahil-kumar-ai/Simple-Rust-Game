@@ -1,6 +1,6 @@
 use std::io;
 
-use sqlx::{Pool, Sqlite, pool, query, query_as};
+use sqlx::{Pool, Sqlite, sqlite::SqliteRow};
 
 #[derive(Debug, sqlx::FromRow)]
 pub struct Book {
@@ -61,6 +61,17 @@ impl Books {
 
         Ok(rows)
     }
+
+    pub async fn get_book_by_id (pool: &Pool<Sqlite>, id : i32) -> Result<SqliteRow, sqlx::Error> {
+        let book_datails = sqlx::query("SELECT id, name, author, available FROM books WHERE id == ?")
+            .bind(id)
+            .fetch_one(pool)
+            .await?;
+
+        println!("{book_datails:?}");
+        Ok(book_datails)
+    }
+
 }
 
 pub fn user_input() -> Books {
@@ -91,4 +102,18 @@ pub fn user_input() -> Books {
         author,
         available,
     }
+}
+
+
+pub fn user_id_input() -> i32 {
+
+    let mut id: String = String::new();
+
+    println!("Enter The ID of The Book :");
+
+    io::stdin().read_line(&mut id).expect("Error");
+
+    let id: i32 = id.trim().parse().expect("Error");
+
+    id
 }

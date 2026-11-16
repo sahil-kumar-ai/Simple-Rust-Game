@@ -35,10 +35,10 @@ async fn main() {
                 }
             }
             Choose::SeeBookByID => {
-                let book_details: Books = booksOperation::user_input();
-                let book = Books::create_book(book_details.name, book_details.author, book_details.available);
-                let id = Books::add_book(&pool, &book).await;
-                println!("Book added with ID: {:?}", id);
+                let book_id: i32 = booksOperation::user_id_input();
+                let book = Books::get_book_by_id(&pool, book_id).await.unwrap();
+                
+                println!("Book added with ID: {:?}", book);
             }
             Choose::DeleteBook => {
                 let book_details: Books = booksOperation::user_input();
