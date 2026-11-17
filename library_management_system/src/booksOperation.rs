@@ -23,7 +23,7 @@ pub async fn create_book_table(pool: &Pool<Sqlite>) {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             author TEXT NOT NULL,
-            available BOOLEAN NOT NULL
+            available INTEGER NOT NULL
         )",
     )
     .execute(pool)
@@ -62,16 +62,28 @@ impl Books {
         Ok(rows)
     }
 
-    pub async fn get_book_by_id (pool: &Pool<Sqlite>, id : i32) -> Result<SqliteRow, sqlx::Error> {
-        let book_datails = sqlx::query("SELECT id, name, author, available FROM books WHERE id == ?")
-            .bind(id)
-            .fetch_one(pool)
-            .await?;
+    pub async fn get_book_by_id(pool: &Pool<Sqlite>, id: i32) -> Result<Book, sqlx::Error> {
+        let book_details =
+            sqlx::query_as::<_, Book>("SELECT id, name, author, available FROM books WHERE id = ?")
+                .bind(id)
+                .fetch_one(pool)
+                .await?;
 
-        println!("{book_datails:?}");
-        Ok(book_datails)
+        Ok(book_details)
     }
 
+    pub async fn delete_book_by_id (pool : &Pool<Sqlite>, id : i32) -> Result<Book, sqlx::Error> {
+        let deleted_book = Self::get_book_by_id(&pool, id).await?;
+
+        sqlx::query("DELETE FROM books WHERE id = ?")
+            .bind(id)
+            .execute(pool)
+            .await?;
+
+        
+
+        Ok(deleted_book)
+    }
 }
 
 pub fn user_input() -> Books {
@@ -104,9 +116,7 @@ pub fn user_input() -> Books {
     }
 }
 
-
 pub fn user_id_input() -> i32 {
-
     let mut id: String = String::new();
 
     println!("Enter The ID of The Book :");
