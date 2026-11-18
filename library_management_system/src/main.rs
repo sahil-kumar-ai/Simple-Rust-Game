@@ -57,7 +57,10 @@ async fn main() {
                 let book_id: i32 = booksOperation::user_id_input();
                 let book = Books::delete_book_by_id(&pool, book_id).await.unwrap();
 
-                println!("Book Deleted With ID : {:?}", book);
+                match book.as_ref() {
+                    Option::None => println!("Book doesn't exist with ID {book_id:?}"),
+                    Option::Some(T) => println!("Book deleted with ID {book_id:?} : {book:?}", )
+                }
             }
             Choose::Exit => break,
         }

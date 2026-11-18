@@ -1,6 +1,7 @@
 use std::io;
 
 use sqlx::{Pool, Sqlite, sqlite::SqliteRow};
+use tokio::fs::try_exists;
 
 #[derive(Debug, sqlx::FromRow)]
 pub struct Book {
@@ -62,25 +63,24 @@ impl Books {
         Ok(rows)
     }
 
-    pub async fn get_book_by_id(pool: &Pool<Sqlite>, id: i32) -> Result<Book, sqlx::Error> {
+    pub async fn get_book_by_id(pool: &Pool<Sqlite>, id: i32) -> Result<Option<Book>, sqlx::Error> {
         let book_details =
             sqlx::query_as::<_, Book>("SELECT id, name, author, available FROM books WHERE id = ?")
                 .bind(id)
-                .fetch_one(pool)
+                .fetch_optional(pool)
                 .await?;
+
 
         Ok(book_details)
     }
 
-    pub async fn delete_book_by_id (pool : &Pool<Sqlite>, id : i32) -> Result<Book, sqlx::Error> {
+    pub async fn delete_book_by_id (pool : &Pool<Sqlite>, id : i32) -> Result<Option<Book>, sqlx::Error> {
         let deleted_book = Self::get_book_by_id(&pool, id).await?;
 
         sqlx::query("DELETE FROM books WHERE id = ?")
             .bind(id)
             .execute(pool)
             .await?;
-
-        
 
         Ok(deleted_book)
     }
